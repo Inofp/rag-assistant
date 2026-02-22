@@ -27,3 +27,7 @@ async def search(req: SearchRequest, p: ChatPipeline = Depends(deps.pipeline)):
 @router.post("/api/ingest", response_model=IngestResponse)
 async def ingest(req: IngestRequest, p: ChatPipeline = Depends(deps.pipeline)):
     return await p.ingest(req)
+
+@router.get("/metrics")
+def metrics(p: ChatPipeline = Depends(deps.pipeline)):
+    return p.m.snapshot()
